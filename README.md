@@ -1,6 +1,11 @@
 # Pebcode
 How to set up Xcode for [Pebble](https://getpebble.com) development.
 
+**Note:** These instructions are based purely on trial and error. If you know of a better way to achieve one or more of the steps below then please do contribute by way of a pull request.
+
+#### TODO
+1. Figure out how to install the built app into the emulator
+
 ## Prerequisites
 Before you continue, please make sure you have...
 
@@ -19,7 +24,7 @@ Enter the details of your app, make sure to change **Language** to **C**, and th
 
 Choose somewhere on disk to create the project, and then click **Create**.
 
-When Xcode has finished doing it’s thing, select all the groups in the Project Navigator:
+When Xcode has finished doing it’s thing, select all the groups in the Project navigator:
 
 ![](Images/03.png)
 
@@ -35,7 +40,7 @@ Fire up Terminal, `cd` into the folder containing the Xcode project file, and us
 
 ![](Images/06.png)
 
-Back in Xcode, right click on the project in the Project Navigator and select **Add Files to “Project Name”** :
+Back in Xcode, right click on the project in the Project navigator and select **Add Files to “Project Name”** :
 
 ![](Images/07.png)
 
@@ -43,7 +48,7 @@ In the file dialog, select the folder you created earlier using the `pebble` com
 
 ![](Images/08.png)
 
-In the Project Navigator select both the **.gitignore** and **wscript** files:
+In the Project navigator select both the **.gitignore** and **wscript** files:
 
 ![](Images/09.png)
 
@@ -59,6 +64,53 @@ Double-click on **Header Search Paths** and then click the **+** button to add a
 
 ![](Images/11.png)
 
-> In case it’s not clear in the screenshot, the full path I used was **/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/Pebble/include**, but obviously your path will be different.
+`/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/Pebble/include`
 
+You might find a new _product_ appears in the Project navigator after making this change:
+
+![](Images/12.png)
+
+Go ahead and delete that! This seems to happen whenever you make changes to the target’s Build Settings, but since you’ll never build that target it’s safe to remove the _product_.
+
+Next, select **Editor\Add Target**. Then choose the **OS X\Other\External Build System** template:
+
+![](Images/13.png)
+
+Name the product **Build**, set **Build Tool** to the **full** path of the `pebble` executable found in the Pebble SDK, and then click **Finish**:
+
+![](Images/14.png)
+
+`/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/bin/pebble`
+
+Select the new **Build** target and open the **Info** pane. Set **Arguments** to **build**, **Directory** to the directory of your Pebble app (_the directory that sits alongside the Xcode project file_), and uncheck **Pass build settings in environment**:
+
+![](Images/15.png)
+
+The final step is to delete the scheme that will build and run the original OS X command line tool.
+
+Select **Product\Schemes\Manage Schemes**. In the Scheme Manager highlight the original scheme (_it’ll have the same name as the project_) and then click the **-** button:
+
+![](Images/16.png)
+
+Confirm the deletion when prompted, and then click **Close** to save your changes.
+
+And that’s all there is too it. 
+
+You now get full syntax highlighting:
+
+![](Images/17.png)
+
+As well as code completion:
+
+![](Images/18.png)
+
+You can use **cmd+b** to build your Pebble app, and see the output from the build in the Report navigator:
+
+![](Images/19.png)
+
+And since the SDK headers are so well documented, you even get full **Quick Help** support:
+
+![](Images/20.png)
+
+Another big advantage of using Xcode over a text editor is that you also get syntax checking. Which, if you’ve adopted Swift as I have, is invaluable in reminding you that you do need to use semi-colons :]
 
