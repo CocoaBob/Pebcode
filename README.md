@@ -42,3 +42,23 @@ Back in Xcode, right click on the project in the Project Navigator and select **
 In the file dialog, select the folder you created earlier using the `pebble` command:
 
 ![](Images/08.png)
+
+In the Project Navigator select both the **.gitignore** and **wscript** files:
+
+![](Images/09.png)
+
+And hit backspace. But this time choose **Remove References** when prompted.
+
+Next up, you need to tell Xcode where to find the headers for the Pebble SDK.
+
+Select the target for your project, and then open the **Build Settings** pane. Enter **header search** in the search box:
+
+![](Images/10.png)
+
+Double-click on **Header Search Paths** and then click the **+** button to add a new entry. Enter the **full** path to the **include** directory inside the Pebble SDK folder, and change **non-recursive** to **recursive**:
+
+![](Images/11.png)
+
+> In case it’s not clear in the screenshot, the full path I used was **/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/Pebble/include**, but obviously your path will be different.
+
+
