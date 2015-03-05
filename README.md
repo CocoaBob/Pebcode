@@ -82,13 +82,13 @@ Name the product **Build**, set **Build Tool** to the *full* path of the `pebble
 
 `/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/bin/pebble`
 
-Select the new **Build** target and open the **Info** pane. Set **Arguments** to **build**, **Directory** to the directory of your Pebble app (_the directory that sits alongside the Xcode project file_), and uncheck **Pass build settings in environment**:
+Select the new **Build** target and open the **Info** pane. Set **Arguments** to **build**, **Directory** to the directory of your Pebble app - the directory that sits alongside the Xcode project file - , and uncheck **Pass build settings in environment**:
 
 ![](Images/15.png)
 
 The final step is to delete the scheme that will build and run the original OS X command line tool.
 
-Select **Product\Schemes\Manage Schemes**. In the Scheme Manager highlight the original scheme (_it’ll have the same name as the project_) and then click the **-** button:
+Select **Product\Schemes\Manage Schemes**. In the Scheme Manager highlight the original scheme - it’ll have the same name as the project - and then click the **-** button:
 
 ![](Images/16.png)
 
