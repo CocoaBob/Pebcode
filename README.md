@@ -112,5 +112,5 @@ And since the SDK headers are so well documented, you even get full **Quick Help
 
 ![](Images/20.png)
 
-Another big advantage of using Xcode over a text editor is that you also get syntax checking. Which, if you’ve adopted Swift as I have, is invaluable in reminding you about the need for semi-colons :]
+Another big advantage of using Xcode over a text editor is the syntax checking. Which comes in really useful if you’ve recently moved to [Swift](https://developer.apple.com/swift/) and have therefore completely forgot about the need for semi-colons :smirk:
 
