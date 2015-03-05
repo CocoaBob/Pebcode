@@ -96,21 +96,31 @@ Confirm the deletion when prompted, and then click **Close** to save your change
 
 And that’s all there is too it. 
 
-You now get full syntax highlighting:
+## But Why?
+
+You might be thinking there’s a lot of hoops to jump through here, so what’s value in doing so? Well, once setup you get the following:
+
+### Syntax Highlighting
 
 ![](Images/17.png)
 
-As well as code completion:
+### Code Completion
 
 ![](Images/18.png)
 
-You can use **cmd+b** to build your Pebble app, and see the output from the build in the Report navigator:
+### Build Support
 
 ![](Images/19.png)
 
-And since the SDK headers are so well documented, you even get full **Quick Help** support:
+You can use ⌘+b to build your Pebble app, and you can even see the output from the build in the Report navigator.
+
+### Quick Help
 
 ![](Images/20.png)
 
-Another big advantage of using Xcode over a text editor is the syntax checking. Which comes in really useful if you’ve recently moved to [Swift](https://developer.apple.com/swift/) and have therefore completely forgot about the need for semi-colons :smirk:
+I :heart: Pebble’s SDK developers for making sure the headers are really well documented.
+
+### Syntax Checking
+
+This comes in really useful if you’ve recently moved to [Swift](https://developer.apple.com/swift/) and have therefore completely forgot about the need for semi-colons :smirk:
 
