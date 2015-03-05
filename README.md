@@ -22,7 +22,7 @@ Enter the details of your app, make sure to change **Language** to **C**, and th
 
 ![](Images/02.png)
 
-Choose somewhere on disk to create the project, and then click **Create**.
+Choose somewhere on disk to store the project, and then click **Create**.
 
 When Xcode has finished doing it’s thing, select all the groups in the Project navigator:
 
@@ -60,7 +60,7 @@ Select the target for your project, and then open the **Build Settings** pane. E
 
 ![](Images/10.png)
 
-Double-click on **Header Search Paths** and then click the **+** button to add a new entry. Enter the **full** path to the **include** directory inside the Pebble SDK folder, and change **non-recursive** to **recursive**:
+Double-click on **Header Search Paths** and then click the **+** button to add a new entry. Enter the *full* path to the **include** directory inside the Pebble SDK folder, and change **non-recursive** to **recursive**:
 
 ![](Images/11.png)
 
@@ -70,13 +70,13 @@ You might find a new _product_ appears in the Project navigator after making thi
 
 ![](Images/12.png)
 
-Go ahead and delete that! This seems to happen whenever you make changes to the target’s Build Settings, but since you’ll never build that target it’s safe to remove the _product_.
+Go ahead and delete it! This seems to happen whenever you make changes to the target’s Build Settings, but since you’ll never build that target it’s safe to remove the _product_.
 
 Next, select **Editor\Add Target**. Then choose the **OS X\Other\External Build System** template:
 
 ![](Images/13.png)
 
-Name the product **Build**, set **Build Tool** to the **full** path of the `pebble` executable found in the Pebble SDK, and then click **Finish**:
+Name the product **Build**, set **Build Tool** to the *full* path of the `pebble` executable found in the Pebble SDK, and then click **Finish**:
 
 ![](Images/14.png)
 
@@ -112,5 +112,5 @@ And since the SDK headers are so well documented, you even get full **Quick Help
 
 ![](Images/20.png)
 
-Another big advantage of using Xcode over a text editor is that you also get syntax checking. Which, if you’ve adopted Swift as I have, is invaluable in reminding you that you do need to use semi-colons :]
+Another big advantage of using Xcode over a text editor is that you also get syntax checking. Which, if you’ve adopted Swift as I have, is invaluable in reminding you about the need for semi-colons :]
 
