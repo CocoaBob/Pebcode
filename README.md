@@ -118,7 +118,7 @@ You can use ⌘+b to build your Pebble app, and you can even see the output from
 
 ![](Images/20.png)
 
-I :heart: Pebble’s SDK developers for making sure the headers are really well documented.
+I :heart: Pebble’s SDK developers for making sure the headers are so well documented.
 
 ### Syntax Checking
 
