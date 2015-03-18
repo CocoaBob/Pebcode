@@ -64,7 +64,7 @@ Double-click on **Header Search Paths** and then click the **+** button to add a
 
 ![](Images/11.png)
 
-`/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/Pebble/include`
+`/Users/micpringle/Pebble/PebbleSDK-3.0-dp3/Pebble/include`
 
 You might find a new _product_ appears in the Project navigator after making this change:
 
@@ -80,7 +80,7 @@ Name the product **Build**, set **Build Tool** to the *full* path of the `pebble
 
 ![](Images/14.png)
 
-`/Users/micpringle/Pebble/PebbleSDK-3.0-dp1/bin/pebble`
+`/Users/micpringle/Pebble/PebbleSDK-3.0-dp3/bin/pebble`
 
 Select the new **Build** target and open the **Info** pane. Set **Arguments** to **build**, **Directory** to the directory of your Pebble app, and uncheck **Pass build settings in environment**:
 
