@@ -93,13 +93,13 @@ Notes:
 	/util/ssl_.py:79: InsecurePlatformWarning: A true SSLContext object is not
 	available. This prevents urllib3 from configuring SSL appropriately and 
 	may cause certain SSL connections to fail. For more information, see 
-	https://urllib3.readthedocs.org/en/latest  
-	/security.html#insecureplatformwarning.
+	https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning.
 	``` 
-5. **HiddenTarget** is only used for supporting Syntax Highlighting and Suggest Completion. It's better to delete its Scheme as we don't want to build&run it.
+5. **HiddenTarget** is used for supporting Syntax Highlighting and Suggest Completion. It's better to delete its Scheme as we don't want to build&run it.
 	1. Menu: Product -> Scheme -> Manage Schemes...
 	2. Choose HiddenTarget, then delete.
 6. Everytime you add new source files, remember to only check target **HiddenTarget**, uncheck all the others.
+7. Once Pebble's SDK is updated, remember to update the User Defined  Setting `PEBBLE_SDK_PATH`.
 
 ## But Why?
 
