@@ -1,100 +1,105 @@
 # Pebcode
 How to set up Xcode for [Pebble](https://getpebble.com) development.
 
-**Note:** These instructions are based purely on trial and error. If you know of a better way to achieve one or more of the steps below then please do contribute by way of a pull request.
-
-#### TODO
-1. Figure out how to install the built app into the emulator
-
 ## Prerequisites
 Before you continue, please make sure you have...
 
 * The latest version of the Pebble SDK, installed as per [these instructions](http://developer.getpebble.com/sdk/install/mac)
-* Xcode 6.1.1, which can be found on the [Mac App Store](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12)
+* Xcode from [Mac App Store](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12)
 
 ## Xcode, Meet Pebble
 
-Open Xcode, and select **File\New\Project**. Then choose the **OS X\Application\Command Line Tool** template:
+Steps to build and run a Pebble project in Xcode:
 
-![](Images/01.png)
+1. **Create a new Xcode project** in Xcode
+	1. OS X -> Application -> **Command Line Tool**
+	2. Product Name: **MyProject**
+	3. Language: **C**
+	3. Next -> Create
+	4. Rename target **MyProject** to **HiddenTarget**
+	5. Delete main.c and its parent folder *MyProject*
+2. Create a new Pebble project in Terminal
+	1. `cd PATH_TO_MyProject`
+	2. `pebble new-project MyProject`
+	3. Move all files from subfolder **MyProject** to its parent folder
+	4. Delete the subfolder **MyProject**
+	5. (So that `MyProject.xcodeproj` is together with all Pebble project files)
+	6. (So that the directory	structure could be supported by [CloudPebble](cloudpebble.net))
+3. Add Pebble project files
+	1. Drag `appinfo.json`, `resources`, `src` from Finder to Xcode project navigator. (The left files list corresponding to `⌘+1`)
+	2. In the dialog
+		1. Added folders: Choose **Create groups**
+		2. Add to targets: Select **HiddenTarget**
+4. Setup Xcode project's **Building Settings**
+	1. Select the project (top blue icon in the files list)
+	2. In the **Building Settings** tab
+	2. 	Menu: Editor -> Add Build Setting -> Add User-Defined Setting
+	3. Key = **`PEBBLE_SDK_PATH`**
+	4. Value = **`$(HOME)/pebble-dev/PebbleSDK-3.1`**
+	5. Double click the value of **Header Search Paths** and add
+		1. `$(PEBBLE_SDK_PATH)/Pebble/aplite/include/**`
+		2. `$(PEBBLE_SDK_PATH)/Pebble/basalt/include/**`
+5. Add a new target for **Build & Run**.
+	1. Select the project (top blue icon in the files list)
+	2. Menu: Editor -> Add Target...
+	3. OS X -> Application -> Command Line Tool
+	4. Product Name: **Basalt**
+	5. Delete main.c and it's parent folder *Basalt*
+6. Setup target **Basalt**'s **Build Phases**
+	1. Delete all phases that can be deleted
+		1. Compile Sources
+		2. Link Binary With Libraries
+		3. Copy Files
+	2. Menu: Editor -> Add New Build Phase -> Add Run Script Build Phase
+	3. Paste the following scripts
 
-Enter the details of your app, make sure to change **Language** to **C**, and then click **Next**:
+	```
+	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
+	cd ${SRCROOT}
+	pebble build
+	pebble install --emulator basalt
+	```
+7. Setup target **Basalt**'s Scheme to avoid a warning dialog
+	1. Menu: Product -> Scheme -> Basalt
+	2. Menu: Product -> Scheme -> Edit Scheme... (`⌘+<`)
+	3. Launch: Choose **Wait for executable to be launched**
 
-![](Images/02.png)
+8. Now you can press `⌘+R` to build your Pebble project and run it in Basalt emulator.
 
-Choose somewhere on disk to store the project, and then click **Create**.
+Notes:
 
-When Xcode has finished doing it’s thing, select all the groups in the Project navigator:
+1. You can add another target for **Aplite** emulator, just modify the script to
 
-![](Images/03.png)
+	```
+	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
+	cd ${SRCROOT}
+	pebble build
+	pebble install --emulator aplite
+	```
+2. You can add another target for real device test, just modify the script to (remember to change the IP address of your iOS/Android device)
 
-And hit backspace to delete them. When prompted, choose **Move to Trash**:
+	```
+	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
+	cd ${SRCROOT}
+	pebble build
+	pebble install --phone 192.168.1.2
+	```
+3. You can check all logs in Report Navigator (`⌘+8`)
 
-![](Images/04.png)
+4. You may get the following error during the building, you need to update Python security package in Terminal by typing `pip install requests[security]`.
 
-Next, navigate to your project’s folder using Finder and delete the empty folder that’s sitting alongside the Xcode project file:
-
-![](Images/05.png)
-
-Fire up Terminal, `cd` into the folder containing the Xcode project file, and use `pebble` to create a new Pebble project, using the same name as the Xcode project:
-
-![](Images/06.png)
-
-Back in Xcode, right click on the project in the Project navigator and select **Add Files to “Project Name”** :
-
-![](Images/07.png)
-
-In the file dialog, select the folder you created earlier using the `pebble` command:
-
-![](Images/08.png)
-
-In the Project navigator select both the **.gitignore** and **wscript** files:
-
-![](Images/09.png)
-
-And hit backspace. But this time choose **Remove References** when prompted.
-
-Next up, you need to tell Xcode where to find the headers for the Pebble SDK.
-
-Select the target for your project, and then open the **Build Settings** pane. Enter **header search** in the search box:
-
-![](Images/10.png)
-
-Double-click on **Header Search Paths** and then click the **+** button to add a new entry. Enter the *full* path to the **include** directory inside the Pebble SDK folder, and change **non-recursive** to **recursive**:
-
-![](Images/11.png)
-
-`/Users/micpringle/Pebble/PebbleSDK-3.0-dp3/Pebble/include`
-
-You might find a new _product_ appears in the Project navigator after making this change:
-
-![](Images/12.png)
-
-Go ahead and delete it! This seems to happen whenever you make changes to the target’s Build Settings, but since you’ll never build that target it’s safe to remove the _product_.
-
-Next, select **Editor\Add Target**. Then choose the **OS X\Other\External Build System** template:
-
-![](Images/13.png)
-
-Name the product **Build**, set **Build Tool** to the *full* path of the `pebble` executable found in the Pebble SDK, and then click **Finish**:
-
-![](Images/14.png)
-
-`/Users/micpringle/Pebble/PebbleSDK-3.0-dp3/bin/pebble`
-
-Select the new **Build** target and open the **Info** pane. Set **Arguments** to **build**, **Directory** to the directory of your Pebble app, and uncheck **Pass build settings in environment**:
-
-![](Images/15.png)
-
-The final step is to delete the scheme that will build and run the original OS X command line tool.
-
-Select **Product\Schemes\Manage Schemes**. In the Scheme Manager highlight the original scheme and then click the **-** button:
-
-![](Images/16.png)
-
-Confirm the deletion when prompted, and then click **Close** to save your changes.
-
-And that’s all there is too it. 
+	```
+	/usr/local/lib/python2.7/dist-packages/requests/packages/urllib3
+	/util/ssl_.py:79: InsecurePlatformWarning: A true SSLContext object is not
+	available. This prevents urllib3 from configuring SSL appropriately and 
+	may cause certain SSL connections to fail. For more information, see 
+	https://urllib3.readthedocs.org/en/latest  
+	/security.html#insecureplatformwarning.
+	``` 
+5. **HiddenTarget** is only used for supporting Syntax Highlighting and Suggest Completion. It's better to delete its Scheme as we don't want to build&run it.
+	1. Menu: Product -> Scheme -> Manage Schemes...
+	2. Choose HiddenTarget, then delete.
+6. Everytime you add new source files, remember to only check target **HiddenTarget**, uncheck all the others.
 
 ## But Why?
 
