@@ -54,16 +54,7 @@ Steps to build and run a Pebble project in Xcode:
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	cd ${SRCROOT}
-	pebble build
-	pebble install --emulator basalt
-	if ps aux | grep "pebble logs --emulator basalt" | grep -v "grep"
-	then
-	osascript -e 'tell app "Terminal"' -e 'activate' -e 'end tell'
-	else
-	osascript -e 'tell app "Terminal"' -e 'do script "pebble logs --emulator basalt"' -e 'activate' -e 'end tell'
-	fi
-	osascript -e "tell app \"${PEBBLE_SDK_PATH}/Pebble/common/qemu/qemu-system-arm_Darwin_x86_64\"" -e 'activate' -e 'end tell'
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator basalt" in C' -e 'do script "pebble logs --emulator basalt" in C' -e 'end tell'
 	```
 7. Setup target **Basalt**'s Scheme to avoid a warning dialog
 	1. Menu: Product -> Scheme -> Basalt
@@ -80,38 +71,19 @@ Notes:
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	cd ${SRCROOT}
-	pebble build
-	pebble install --emulator aplite
-	if ps aux | grep "pebble logs --emulator aplite" | grep -v "grep"
-	then
-	osascript -e 'tell app "Terminal"' -e 'activate' -e 'end tell'
-	else
-	osascript -e 'tell app "Terminal"' -e 'do script "pebble logs --emulator aplite"' -e 'activate' -e 'end tell'
-	fi
-	osascript -e "tell app \"${PEBBLE_SDK_PATH}/Pebble/common/qemu/qemu-system-arm_Darwin_x86_64\"" -e 'activate' -e 'end tell'
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator aplite" in C' -e 'do script "pebble logs --emulator aplite" in C' -e 'end tell'
 	```
 2. You can add another target for real device test, just modify the script to (remember to change the PHONE_IP of your iOS/Android devices)
+
 
 	```
 	PHONE_IP=192.168.1.2
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	cd ${SRCROOT}
-	pebble build
-	pebble install --phone $PHONE_IP
-	if ps aux | grep "pebble logs --phone ${PHONE_IP}" | grep -v "grep"
-	then
-	osascript -e 'tell app "Terminal"' -e 'activate' -e 'end tell'
-	else
-	osascript -e 'tell app "Terminal"' -e "do script \"pebble logs --phone ${PHONE_IP}\"" -e 'activate' -e 'end tell'
-	fi
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e "do script \"pebble install --phone $PHONE_IP\" in C" -e "do script \"pebble logs --phone ${PHONE_IP}\" in C" -e 'end tell'
 	```
-3. If your build has warnings or failures, you can check the logs in Report Navigator (`⌘+8`)
-
-4. You may get the following errors during building, you need to update Python security package in Terminal by typing `pip install requests[security]`.
-
+3. You may get the following errors during building, you need to update Python security package in Terminal by typing `pip install requests[security]`.
 	```
 	/usr/local/lib/python2.7/dist-packages/requests/packages/urllib3
 	/util/ssl_.py:79: InsecurePlatformWarning: A true SSLContext object is not
@@ -119,12 +91,12 @@ Notes:
 	may cause certain SSL connections to fail. For more information, see 
 	https://urllib3.readthedocs.org/en/latest/security.html#insecureplatformwarning.
 	``` 
-5. **HiddenTarget** is used for supporting Syntax Highlighting and Suggest Completion. It's better to delete its Scheme as we won't build & run it.
+4. **HiddenTarget** is used for supporting Syntax Highlighting and Suggest Completion. It's better to delete its Scheme as we won't build & run it.
 	1. Menu: Product -> Scheme -> Manage Schemes...
 	2. Choose HiddenTarget, then delete.
-6. Everytime you add some new source files, remember to only check target **HiddenTarget**, uncheck all the others.
-7. You may fail to upgrade the Pebble SDK on Yosemite or El Capitan with compiling errors, edit `~/pebble-dev/PebbleSDK-3.4/requirements.txt`, and change `gevent==1.0.2` to `gevent==1.1.b1`. ([Discussions](https://github.com/pebble/homebrew-pebble-sdk/issues/18))
-8. If your phone can't be connected during the installing, remember to close the Terminal window which is displaying the logs of your real Pebble watch.
+5. Everytime you add some new source files, remember to only check target **HiddenTarget**, uncheck all the others.
+6. You may fail to upgrade the Pebble SDK on Yosemite or El Capitan with compiling errors, edit `~/pebble-dev/PebbleSDK-3.4/requirements.txt`, and change `gevent==1.0.2` to `gevent==1.1.b1`. ([Discussions](https://github.com/pebble/homebrew-pebble-sdk/issues/18))
+7. If your phone can't be connected during the installing, remember to close the Terminal window which is displaying the logs of your real Pebble watch.
 
 ## But Why?
 
