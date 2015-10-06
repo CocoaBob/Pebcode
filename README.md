@@ -53,7 +53,7 @@ Steps to build and run a Pebble project in Xcode:
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator basalt" in C' -e 'do script "pebble logs --emulator basalt" in C' -e 'end tell'
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e 'set C to do script "" in window 1' -e "do script \"cd ${SRCROOT}\" in C" -e 'do script "pebble clean" in C' -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator basalt" in C' -e 'do script "pebble logs --emulator basalt" in C' -e 'end tell'
 	```
 7. Setup target **Basalt**'s Scheme to avoid a warning dialog
 	1. Menu: Product -> Scheme -> Basalt
@@ -70,7 +70,7 @@ Notes:
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator aplite" in C' -e 'do script "pebble logs --emulator aplite" in C' -e 'end tell'
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e 'set C to do script "" in window 1' -e "do script \"cd ${SRCROOT}\" in C" -e 'do script "pebble clean" in C' -e 'do script "pebble build" in C' -e 'do script "pebble install --emulator aplite" in C' -e 'do script "pebble logs --emulator aplite" in C' -e 'end tell'
 	```
 2. You can add another target for real device test, just modify the script to (remember to change the PHONE_IP of your iOS/Android devices)
 
@@ -80,7 +80,7 @@ Notes:
 	PEBBLE_DEV_DIR=~/pebble-dev
 	PEBBLE_SDK_PATH=$(find $PEBBLE_DEV_DIR -mindepth 1 -maxdepth 1 -type d -name "PebbleSDK-*.*" | sort -n | tail -1)
 	PATH=${PATH}:${PEBBLE_SDK_PATH}/bin/
-	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e "set C to do script \"cd ${SRCROOT}\" in window 1" -e 'do script "pebble build" in C' -e "do script \"pebble install --phone $PHONE_IP\" in C" -e "do script \"pebble logs --phone ${PHONE_IP}\" in C" -e 'end tell'
+	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e 'set C to do script "" in window 1' -e "do script \"cd ${SRCROOT}\" in C" -e 'do script "pebble clean" in C' -e 'do script "pebble build" in C' -e "do script \"pebble install --phone $PHONE_IP\" in C" -e "do script \"pebble logs --phone ${PHONE_IP}\" in C" -e 'end tell'
 	```
 3. You may get the following errors during building, you need to update Python security package in Terminal by typing `pip install requests[security]`.
 	```
