@@ -34,7 +34,7 @@ Steps to build and run a Pebble project in Xcode:
 	1. Select the project (top blue icon in the files list)
 	2. In the **Building Settings** tab
 	3. Double click the value of **Header Search Paths** and add
-		1. `~/pebble-dev/**`
+		1. `~/Library/Application\ Support/Pebble\ SDK/SDKs/current/**`
 5. Add a new target for **Build & Run**.
 	1. Select the project (top blue icon in the files list)
 	2. Menu: Editor -> Add Target...
