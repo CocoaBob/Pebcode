@@ -92,7 +92,7 @@ Notes:
 	```
 	osascript -e 'tell app "Terminal"' -e 'if not (exists window 1) then' -e 'do script ""' -e 'end if' -e 'activate' -e 'end tell' -e 'tell app "System Events" to keystroke "c" using control down' -e 'tell app "Terminal"' -e 'set ctx to do script "" in window 1' -e "do script \"cd ${SRCROOT}\" in ctx" -e 'do script "pebble build" in ctx' -e "do script \"pebble install -v --cloudpebble --logs\" in ctx" -e "do script \"pebble logs -v --cloudpebble\" in ctx" -e 'end tell'
 	```
-9. If you get compiler error `clang: error: unknown argument: '-meabi=5'` after installing Pebble SDK 4.0, you can fix it by replacing `/usr/local/Cellar/pebble-toolchain/2.0/arm-cs-tools` with an old version supplied with Pebble SDK 3.x.
+9. If you get compiler error `clang: error: unknown argument: '-meabi=5'` after installing Pebble SDK 4.0, check if the **Header Search Paths** setting has been updated correctly.
 
 ## But Why?
 
